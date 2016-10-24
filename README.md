@@ -2,6 +2,7 @@
 angular-express入门搭建网站
 
 **1** 使用Angular JS框架开发好Html页面以及对应的JS文件；
+
 **2** 安装express到项目中：npm install express；
    新建public目录，放入angular应用里的文件；
    新建app.js建立一个server，
