@@ -1,9 +1,9 @@
 # angular-express
 angular-express入门搭建网站
 
-**1** 使用Angular JS框架开发好Html页面以及对应的JS文件；
+**1、** 使用Angular JS框架开发好Html页面以及对应的JS文件；
 
-**2** 安装express到项目中：npm install express；
+**2、** 安装express到项目中：npm install express；
    新建public目录，放入angular应用里的文件；
    新建app.js建立一个server，
 ```javascript
@@ -32,7 +32,8 @@ router.get('/', function(req, res, next) {
 
 module.exports = router;
 ```
-**3**把服务运行起来
+**3、**把服务运行起来
 ```
 node app.js
 ```
+打开本机浏览器访问：localhost:3000即可看到angular应用中的页面效果
