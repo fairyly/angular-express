@@ -14,6 +14,7 @@
 **1、** 使用Angular JS框架开发好Html页面以及对应的JS文件；
 
 **2、** 安装express到项目中：npm install express；
+
    可以全手动新建或者使用express创建项目：用express创建一个app项目命令：express hello-world -e （hello-world为项目名，-e表示支持ejs模板引擎，默认是jade），会自动生成下面这些需要的目录和文件（如:public,routes,views,还有app.js和package.json文件），然后使用npm install安装依赖；
    
    新建public目录，放入angular应用里的文件；
