@@ -36,4 +36,4 @@ module.exports = router;
 ```
 node app.js
 ```
-打开本机浏览器访问：localhost:3000即可看到angular应用中的页面效果
+打开本机浏览器访问：http://localhost:3000 即可看到angular应用中的页面效果
