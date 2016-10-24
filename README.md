@@ -1,5 +1,15 @@
 # angular-express
-angular-express入门搭建网站
+
+>
+运行这个demo步骤：本地需要node环境，安装了express;
+
+1.git clone https://github.com/fairyly/angular-express.git
+
+2.cd angular-express
+
+3.node app.js
+
+# angular+express入门搭建网站
 
 **1、** 使用Angular JS框架开发好Html页面以及对应的JS文件；
 
