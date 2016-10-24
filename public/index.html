@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="keyword" content="什么网站">
+<meta name="description" content="网站做什么">
+<title>添加删除列表</title>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<script type="text/javascript" src="js/angular.min.js"></script>
+<!-- <script type="text/javascript" src="js/bootstrap.min.js"></script> -->
+<style>
+	.error{
+	 border:5px solid red;
+	}
+</style>
+</head>
+
+<body>
+	<div ng-app="myApp" ng-controller="myCtrl" class="text-center" ng-view>
+		<div class="page-header">
+			<h2 class="l" id="dis" ng-hide="names.length!==0">添加删除列表</h2>
+			<p>输入的内容是：<span ng-bind="txt"></span></p>
+		</div>
+		<h3 ng-if="names.length>0" ng-class={error:true}>使用ng-if显示这里</h3>
+		<input type="txt" name="myAddress" ng-model="txt">
+        <span ng-show="myForm.myAddress.$error.email">不是一个合法的邮箱地址</span>
+		<button class="btn btn-primary" style="width:80px;height:30px" ng-click="add()">添加</button>
+		<p class=""></p>
+		<!-- <div class="input-group input-group-sm col-md-offset-5 col-md-2">
+		  <input type="text" class="form-control col-md-3" ng-model="txtb">
+		  <span class="input-group-addon" ng-click="addb()">添加</span>
+		</div> -->
+	
+		<p class=""></p>
+		<div class="panel panel-default">
+			
+		</div>
+		<div class="row">
+		  <div class="col-md-offset-5 col-md-2">
+		    <div class="input-group">
+		    	<input type="text" class="form-control" ng-model="tx">
+			    <span class="input-group-btn">
+			      <button class="btn btn-primary" type="button" ng-click="ad()">添加</button>
+			    </span>
+		    </div>
+		  </div>
+		</div>
+		<ul class="list-group">
+			<li  class="list-group-item" ng-repeat="x in names track by $index"><span ng-bind="x"></span>
+				<a class="btn btn-primary" ng-click="names.splice($index,1)">删除</a>
+			</li>
+			
+		</ul>
+	</div>
+	<script>
+		var app=angular.module("myApp",[]);
+		app.controller("myCtrl",function($scope){
+			// $scope.txt="";
+        	$scope.names=[];
+   			$scope.add=function(){
+       			$scope.names.push($scope.txt);
+	        };
+	        $scope.ad=function(){
+	       		$scope.names.push($scope.tx);
+	       	};
+	       	$scope.addb=function(){
+	       		$scope.names.push($scope.txb);
+	       	}
+		});
+		// document.getElementsByClassName("list")[0].width="200px";
+		// document.getElementsByClassName("list")[0].height="200px";
+		document.getElementsByClassName("l")[0].style.backgroundColor="#ccc";
+		var v=document.getElementsByClassName("l");
+
+		console.log(v);
+		var dv=document.getElementById("dis");
+		dv.style.color="blue"
+	</script>
+</body>
+</html>

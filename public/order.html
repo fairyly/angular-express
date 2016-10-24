@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>angular订单管理 </title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="author" content="yhq" />
+<link rel="shortcut icon"href="images/favicon.ico"/>
+<style>
+   
+</style>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/angular-route.min.js"></script>
+ </head>
+ 
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+       <p ng-show="IsLoading">订单加载中......</p>
+       <div ng-show="!IsLoading">
+        <div>
+          <span>订单编号：</span><input ng-model="searchOrderId"/><button ng-click="searchOrder()">查询</button><button ng-click="delOrders()">批量删除</button>
+        </div>
+       	<table>
+       		<thead>
+       			<tr>
+              <th>选中</th>
+       				<th>订单编号</th>
+       				<th>卖家</th>
+       				<th>商品详情</th>
+       				<th>订单总价</th>
+       				<th>物流状态</th>
+       				<th>订单状态</th>
+       				<th>下单日期</th>
+              <th>删除</th>
+       			</tr>
+       		</thead>
+       		<tbody ng-repeat="x in orderList "><!-- | filter:orderFilter -->
+       			<tr>
+              <td><input type="checkbox" ng-model="x.selected"/></td>
+       				<td>{{x.orderId}}</td>
+       				<td>{{x.sealer}}</td>
+       				<td>
+       					<ul ng-repeat="p in x.products">
+       						<li>{{p.name}}</li>
+       						<li>{{p.description}}</li>
+       						<li>{{p.price}}</li>
+       						<li>{{p.oldPrice}}</li>
+       						<li>{{p.amount}}</li>
+       						<li>{{p.payment}}</li>
+       					</ul>
+       				</td>
+       				<td>{{x.orderPayment}}</td>
+       				<td>{{x.traffic}}</td>
+       				<td>{{x.status}}</td>
+       				<td>{{x.createTime}}</td>
+       				<td><button ng-click="delOrder(x.orderId)">删除</button></td>
+       			</tr>
+       		</tbody>
+       	</table>
+       </div>
+    </div>
+    <script type="text/javascript">
+    	var app=angular.module("myApp",[]);
+    	app.controller("myCtrl",function($scope){
+
+    		$scope.orderListBase=[
+    			{
+    				orderId:'GH201632001001',
+	    			createTime:'2016-03-20 10:00',
+	    			sealer:'卖家',
+	    			traffic:'已收件',
+	    			status:'卖家已发货',
+	    			products:[
+	    				{
+	    					name:'褐色夹克',
+	    					description:'质量很好',
+	    					price:200.00,
+	    					oldPrice:350.00,
+	    					amount:1,
+	    					payment:200.00
+	    				}
+	    			],
+	    			orderPayment:200.00,
+            selected:false
+    			},
+    			{
+    				orderId:'GH201632001002',
+	    			createTime:'2016-06-20 12:00',
+	    			sealer:'小时假卖家',
+	    			traffic:'已收件',
+	    			status:'卖家已发货',
+	    			products:[
+	    				{
+	    					name:'褐色夹克',
+	    					description:'质量很好',
+	    					price:230.00,
+	    					oldPrice:380.00,
+	    					amount:1,
+	    					payment:230.00
+	    				},
+	    				{
+	    					name:'褐色帽子',
+	    					description:'质量很好',
+	    					price:60.00,
+	    					oldPrice:180.00,
+	    					amount:1,
+	    					payment:60.00
+	    				}
+	    			],
+	    			orderPayment:290.00,
+            selected:false
+    			},
+    		];
+
+    		$scope.orderList=[];
+    		$scope.IsLoading=false;
+    		$scope.LoadOrderList=function(accountId,pageSize,pageIndex){
+    			$scope.IsLoading=true;
+    			$scope.orderList=$scope.orderListBase; 
+    			$scope.IsLoading=false;
+    		};
+
+        $scope.orderFilter=function(order){
+          if($scope.searchOederId!=""){
+              return order.orderId.indexOf($scope.searchOrderId)>=0;
+          }
+        }
+
+        $scope.searchOrder=function(){
+          var searchOrderList=[];
+          for(var  i in $scope.orderListBase){
+            console.log($scope.orderListBase[i].orderId.indexOf($scope.searchOrderId));
+            var si=$scope.orderListBase[i].orderId.indexOf($scope.searchOrderdI);
+            console.log(typeof(si));
+          if(si >=0){
+            searchOrderList.push($scope.orderListBase[i]);
+          }
+        }
+          $scope.orderList=searchOrderList;
+        }
+
+        $scope.delOrder=function(orderId){
+          $scope.orderList.forEach(function(order,i,list){
+              if(order.orderId==orderId){
+                list.splice(i,1);
+              }
+          });
+        }
+
+
+        Array.prototype.remove=function(dx)
+      　{
+      　　if(isNaN(dx)||dx>this.length){return false;}
+      　　for(var i=0,n=0;i<this.length;i++)
+      　　{
+      　　　　if(this[i]!=this[dx])
+      　　　　{
+      　　　　　　this[n++]=this[i]
+      　　　　}
+      　　}
+      　　this.length-=1
+      　}
+        $scope.delOrders=function(){
+          for(var i =$scope.orderList.length-1;i>=0;i--){
+            if($scope.orderList[i].selected){
+              console.log("del");
+                $scope.orderList.remove(i);
+            }
+          }
+        }
+
+    		$scope.LoadOrderList();
+    	});
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+  <title>AngularJS: UI-Router路由</title>
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container-fluid">
+
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a class="navbar-brand" ui-sref="index">Quick Start</a>
+      <ul class="nav navbar-nav">
+        <li class="active"><a ui-sref="index">Home</a></li>
+        <li><a ui-sref="route1">Route 1</a></li>
+        <li><a ui-sref="route2">Route 2</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="well col-md-12" ui-view="viewA"></div>
+    </div>
+    <div class="col-md-6">
+      <div class="well col-md-12" ui-view="viewB"></div>
+    </div>
+  </div>
+
+  <!-- Angular -->
+  <script src="js/angular.min.js"></script>
+  <!-- UI-Router -->
+  <script src="js/angular-ui-router.min.js"></script>
+
+  <!-- App Script -->
+  <script>
+    var myapp = angular.module('myapp', ["ui.router"])
+    myapp.config(function($stateProvider) {
+      $stateProvider
+        .state('index', {
+          url: "",
+          views: {
+            "viewA": {
+              template: "index.viewA"
+            },
+            "viewB": {
+              template: "index.viewB"
+            }
+          }
+        })
+        .state('route1', {
+          url: "/route1",
+          views: {
+            "viewA": {
+              template: "route1.viewA"
+            },
+            "viewB": {
+              template: "route1.viewB"
+            }
+          }
+        })
+        .state('route2', {
+          url: "/route2",
+          views: {
+            "viewA": {
+              template: "route2.viewA"
+            },
+            "viewB": {
+              template: "route2.viewB"
+            }
+          }
+        })
+    })
+  </script>
+
+</body>
+
+</html>
